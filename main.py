@@ -1,13 +1,6 @@
-from random import randrange
+# TicTacToe - version 1.52
 
-def generator_board(): # generuje listę z planszą gry
-    board = []
-    number = 0
-    for i in range(3):
-        row = [number + i + 1 for i in range(3)]
-        board.append(row)
-        number += 3
-    return board
+from random import randrange
 
 def display_board(board): # rysuje plansze
     for i in range(3):
@@ -33,7 +26,7 @@ def enter_move(board): # ruch gracza
         if dictionaly[i] not in free_areas:
             del dictionaly[i]
     
-    input_value = int(input("Podaj liczbę odpowiadającą numerze pola które chcesz wybrać: "))
+    input_value = int(input("Podaj numer pola: "))
     if not (input_value > 0 or input_value < 10):
         return
     
@@ -53,13 +46,13 @@ def victory_for(board): # funkcja sprawdza kto wygrał
 
     # do poprawy sprawdzanie wygranego              
     if (board[0][0] == "X" and board[0][1] == "X" and board[0][2] == "X") or (board[1][0] == "X" and board[1][1] == "X" and board[1][2] == "X") or (board[2][0] == "X" and board[2][1] == "X" and board[2][2] == "X") or (board[0][0] == "X" and board[1][1] == "X" and board[2][2] == "X") or (board[0][2] == "X" and board[1][1] == "X" and board[2][0] == "X") or (board[0][0] == "X" and board[0][1] == "X" and board[0][2] == "X") or (board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X") or (board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X"):
-        return "P"
+        return "Przegrałeś...Nie dobrze..."
     elif (board[0][0] == "O" and board[0][1] == "O" and board[0][2] == "O") or (board[1][0] == "O" and board[1][1] == "O" and board[1][2] == "O") or (board[2][0] == "O" and board[2][1] == "O" and board[2][2] == "O") or (board[0][0] == "O" and board[1][1] == "O" and board[2][2] == "O") or (board[0][2] == "O" and board[1][1] == "O" and board[2][0] == "O") or (board[0][0] == "O" and board[1][0] == "O" and board[1][0] == "O") or (board[0][2] == "O" and board[1][2] == "O" and board[2][2] == "O") or (board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X"):
-        return "W"
+        return "Wygrałeś... Brawo!"
     elif boolean == True:
-        return "R" 
+        return "No to mamy remis..." 
     else:
-        return None
+        return 0
 
 def draw_move(board): # ruch komputera
     free_areas = make_list_of_free_fields(board)
@@ -73,34 +66,16 @@ def draw_move(board): # ruch komputera
     board[value1][value2] = "X"
     display_board(board)
     return board
-    
-board = generator_board()
+
+board = [[1,2,3],[4,5,6],[7,8,9]]
 while True:
     board = draw_move(board)
     result = victory_for(board)
-    
-    if result == None:
-        pass
-    elif result == "R":
-        print("No to kurwa mamy pata...")
+    if result != 0:
+        print(result)
         break
-    elif result == "P":
-        print("Przejebałeś z debilem nie dobrze...")
-        break
-    elif result == "W":
-        print("Wygrałeś bilety na chuja z gazety...Brawo!")
-        break
-    
     board = enter_move(board)
     result = victory_for(board)
-    if result == None:
-        pass
-    elif result == "R":
-        print("No to kurwa mamy pata...")
-        break
-    elif result == "P":
-        print("Przejebałeś z debilem nie dobrze...")
-        break
-    elif result == "W":
-        print("Wygrałeś bilety na chuja z gazety...Brawo!")
+    if result != 0:
+        print(result)
         break
