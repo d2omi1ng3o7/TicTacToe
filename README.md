@@ -1,2 +1,2 @@
 # TicTacToe
-Version 1.52
+Version 1.54
